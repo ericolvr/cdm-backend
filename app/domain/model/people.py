@@ -1,0 +1,38 @@
+""" People model """
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+from app.core.database import Base
+
+
+class People(Base):
+    __tablename__ = 'peoples'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(50))
+    document = Column(String(20), nullable=True)
+    picture = Column(String(100), nullable=True)
+
+    complex_id = Column(
+        Integer, 
+        ForeignKey('complexes.id'), 
+        nullable=True
+    )
+    apartment_id = Column(
+        Integer, 
+        ForeignKey('apartments.id'), 
+        nullable=True
+    )
+    
+    complex = relationship(
+        'Complex', 
+        back_populates='residents', 
+        lazy='joined'
+    )
+    
+    apartment = relationship(
+        'Apartment', 
+        back_populates='residents', 
+        lazy='joined'
+    )
+
+    

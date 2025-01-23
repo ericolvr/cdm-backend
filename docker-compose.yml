@@ -1,0 +1,32 @@
+services:
+  database-api:
+    image: mysql:latest
+    restart: always
+    container_name: database-api
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: condominium
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - serial
+ 
+volumes:
+  db_data:
+
+networks:
+  serial:
+    driver: bridge
+
+
+# backend:
+  #   build: .
+  #   container_name: backend
+  #   ports:
+  #     - "9999:9999"
+  #   networks:
+  #     - serial
