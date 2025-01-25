@@ -6,11 +6,11 @@ from typing import Optional
 class PeopleCreate(BaseModel):
     """ People create schema """
 
+    complex_id: int
+    apartment_id: int
     name: str
     document: str
     picture: Optional[str] = None
-    complex_id: str
-    apartment_id: str
 
 
 class PeopleUpdate(BaseModel):
