@@ -1,9 +1,16 @@
 """ People Service """
+import os
+import base64
+from uuid import uuid4
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 
 from app.repositories.people_repository import PeopleRepository
 from app.schemas.people import PeopleCreate
 from app.domain.model.people import People
+
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 class PeopleService:
@@ -16,14 +23,27 @@ class PeopleService:
     def create_people(self, people: PeopleCreate):
         """ Create people """
 
-        people = People(
-            name=people.name,
-            document=people.document,
-            picture=people.picture,
-            complex_id=people.complex_id,
-            apartment_id=people.apartment_id
-        )
-        return self.repository.create_people(people)
+        try:
+            image_data = base64.b64decode(people.picture)
+            file_name = f"{uuid4()}.png"
+            file_path = os.path.join(UPLOAD_FOLDER, file_name)
+
+            with open(file_path, 'wb') as f:
+                f.write(image_data)
+            
+            people.picture = file_path
+            people = People(
+                name=people.name,
+                document=people.document,
+                picture=people.picture,
+                complex_id=people.complex_id,
+                apartment_id=people.apartment_id
+            )
+            return self.repository.create_people(people)
+        
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Error saving image: {str(e)}")
+
     
 
     def get_all_peoples(self):
