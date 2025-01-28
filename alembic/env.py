@@ -11,6 +11,7 @@ from app.domain.model.complex import Complex
 from app.domain.model.people import People
 from app.domain.model.user import User
 from app.domain.model.vehicle import Vehicle
+from app.domain.model.token import Token
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
