@@ -11,10 +11,6 @@ from app.repositories.people_repository import PeopleRepository
 from app.services.token_service import TokenService
 
 
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-
 class PeopleService:
     """ People service """
     
@@ -70,10 +66,15 @@ class PeopleService:
 
 
     def process_image(self, picture: str):
+        """ Process image """
+
+        FOLDER = "uploads"
+        os.makedirs(FOLDER, exist_ok=True)
+        
         try:
             data = base64.b64decode(picture)
             name = f"{uuid4()}.png"
-            path = os.path.join(UPLOAD_FOLDER, name)
+            path = os.path.join(FOLDER, name)
             
             with open(path, 'wb') as f:
                 f.write(data)
