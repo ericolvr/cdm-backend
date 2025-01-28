@@ -35,6 +35,7 @@ class PeopleService:
             people = People(
                 name=people.name,
                 document=people.document,
+                mobile=people.mobile,
                 picture=people.picture,
                 complex_id=people.complex_id,
                 apartment_id=people.apartment_id
@@ -58,6 +59,13 @@ class PeopleService:
 
         people = self.repository.get_people_by_id(id)
         return people
+    
+
+    def get_people_by_complex_apartment(self, complex, apartment):
+        """ Get people complex and apartment """
+
+        peoples = self.repository.get_people_by_complex_apartment(complex, apartment)
+        return peoples
     
 
     def update_by_id(self, id: int, new_data):
