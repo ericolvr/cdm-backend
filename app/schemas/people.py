@@ -10,6 +10,7 @@ class PeopleCreate(BaseModel):
     apartment_id: int
     name: str
     document: str
+    mobile: Optional[str] = None
     picture: Optional[str] = None
 
 
