@@ -1,5 +1,5 @@
 """ People routes """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from app.core.database import get_database
@@ -15,10 +15,11 @@ people_routes = APIRouter(
 @people_routes.post('/', status_code=201)
 def create_people(
     people: PeopleCreate, 
-    database: Session = Depends(get_database)
+    background_tasks: BackgroundTasks,
+    database: Session = Depends(get_database),
 ):
     people_service = PeopleService(database)
-    return people_service.create_people(people)
+    return people_service.create_people(people, background_tasks)
 
 
 @people_routes.get('/')
