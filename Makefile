@@ -39,5 +39,5 @@ migrate:
 
 
 run:
-	uvicorn app.main:app --reload --port 9999
+	uvicorn app.main:app --reload --host 127.0.0.1  --port 9999
 .PHONY: help, upgrade-pip, install, freeze, migrations, migrate, run
