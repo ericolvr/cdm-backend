@@ -28,6 +28,16 @@ def get_vehicles(database: Session = Depends(get_database)):
     return vehicle_service.get_vehicles()
 
 
+@vehicle_routes.get('/complex/{complex}/apartment/{apartment}')
+def get_vehicle_by_complex_apartment(
+    complex: int, 
+    apartment: int, 
+    database: Session = Depends(get_database)
+):
+    vehicle_service = VehicleService(database)
+    return vehicle_service.get_vehicle_by_complex_apartment(complex, apartment)
+
+
 @vehicle_routes.patch('/update/{id}')
 def update_by_id(
         id: int, 
