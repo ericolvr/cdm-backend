@@ -55,6 +55,21 @@ class PeopleRepository:
             return message
         return people
     
+    
+    def get_people_by_complex_apartment(
+            self, 
+            complex: 
+            int, apartment: int
+        ) -> List[People]:
+        """ Get People by complex and apartment """
+        
+        peoples = self.db.query(People).filter(
+            People.complex_id == complex,
+            People.apartment_id == apartment
+        ).all()
+        
+        return peoples
+    
 
     def update_by_id(self, id: int, new_data) -> People:
         """ Update peoplew by id """
