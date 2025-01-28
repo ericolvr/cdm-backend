@@ -33,6 +33,16 @@ def get_people_by_id(id: str, database: Session = Depends(get_database)):
     return people_service.get_people_by_id(id)
 
 
+@people_routes.get('/complex/{complex}/apartment/{apartment}')
+def get_people_by_complex_apartment(
+    complex: int, 
+    apartment: int, 
+    database: Session = Depends(get_database)
+):
+    people_service = PeopleService(database)
+    return people_service.get_people_by_complex_apartment(complex, apartment)
+
+
 @people_routes.patch('/update/{id}')
 def update_by_id(
         id: int, 
