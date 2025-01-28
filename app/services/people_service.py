@@ -16,12 +16,17 @@ class PeopleService:
     
     def __init__(self, db: Session):
         self.repository = PeopleRepository(db)
+        self.database = db
 
 
-    def create_people(self, people: PeopleCreate):
+    def create_people(self, people: PeopleCreate, background_tasks: BackgroundTasks):
         """ Create people """
 
-        picture = self.process_image(people.picture)
+        if people.picture:
+            picture = self.process_image(people.picture)
+        else:
+            picture = None 
+
         people = People(
             name=people.name,
             document=people.document,
@@ -34,6 +39,11 @@ class PeopleService:
         """
             Creating a token and send by sms
         """
+        
+        background_tasks.add_task(
+            TokenService(self.database).create_token, people.mobile
+        )
+
         return self.repository.create_people(people)
 
 
