@@ -31,6 +31,13 @@ class VehicleService:
     
         vehicles = self.repository.get_vehicles()
         return vehicles
+    
+
+    def get_vehicle_by_complex_apartment(self, complex, apartment):
+        """ Get vehicle complex and apartment """
+
+        vehicles = self.repository.get_vehicle_by_complex_apartment(complex, apartment)
+        return vehicles
 
 
     def update_by_id(self, id: int, new_data):
