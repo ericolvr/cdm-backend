@@ -7,7 +7,7 @@ from app.api.v1.endpoints.complex import complex_routes
 from app.api.v1.endpoints.people import people_routes
 from app.api.v1.endpoints.user import user_routes
 from app.api.v1.endpoints.vehicle import vehicle_routes
-
+from app.api.v1.endpoints.token import token_routes
 
 app = FastAPI()
 
@@ -31,5 +31,6 @@ app.include_router(complex_routes)
 app.include_router(people_routes)
 app.include_router(user_routes)
 app.include_router(vehicle_routes)
+app.include_router(token_routes)
 
 
