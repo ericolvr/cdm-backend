@@ -14,11 +14,11 @@ class TokenService:
         self.repository = TokenRepository(db)
 
 
-    def create_token(self, token: TokenCreate):
+    def create_token(self, mobile: str):
         """ Create Token """
     
         token = Token(
-            mobile=token.mobile,
+            mobile=mobile,
             number=self.generate_token(),
             used=False,
         )
