@@ -10,6 +10,7 @@ class People(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(50))
     document = Column(String(20), nullable=True)
+    mobile = Column(String(20), nullable=True)
     picture = Column(String(100), nullable=True)
 
     complex_id = Column(
