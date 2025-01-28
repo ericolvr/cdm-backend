@@ -38,6 +38,21 @@ class VehicleRepository:
             )
         ).all()
         return vehicles
+
+
+    def get_vehicle_by_complex_apartment(
+            self, 
+            complex: 
+            int, apartment: int
+        ) -> List[Vehicle]:
+        """ Get vehicle by complex and apartment """
+        
+        vehicles = self.db.query(Vehicle).filter(
+            Vehicle.complex_id == complex,
+            Vehicle.apartment_id == apartment
+        ).all()
+        
+        return vehicles
     
 
     def get_vehicle_by_id(self, id: int) -> Vehicle:
