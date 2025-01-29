@@ -19,59 +19,59 @@ class PeopleService:
         self.database = db
 
 
-    def create_people(self, people: PeopleCreate, background_tasks: BackgroundTasks):
+    async def create_people(self, people: PeopleCreate, background_tasks: BackgroundTasks):
         """ Create People """
 
         if people.picture:
             picture = self.process_image(people.picture)
         else:
-            picture = None 
+            picture = ''
 
         people = People(
+            complex_id=people.complex_id,
+            apartment_id=people.apartment_id,
             name=people.name,
             document=people.document,
             mobile=people.mobile,
-            picture=picture,
-            complex_id=people.complex_id,
-            apartment_id=people.apartment_id
+            picture=picture
         )
         
         background_tasks.add_task(
             TokenService(self.database).create_token, people.mobile
         )
 
-        return self.repository.create_people(people)
+        return await self.repository.create_people(people)
 
 
-    def get_all_peoples(self):
+    async def get_all_peoples(self):
         """ Get All People """
 
-        peoples = self.repository.get_all_peoples()
+        peoples = await self.repository.get_all_peoples()
         return peoples
 
 
-    def get_people_by_id(self, id: str):
+    async def get_people_by_id(self, id: str):
         """ Get People By Id """
 
-        people = self.repository.get_people_by_id(id)
+        people = await self.repository.get_people_by_id(id)
         return people
     
 
-    def get_people_by_complex_apartment(self, complex, apartment):
+    async def get_people_by_complex_apartment(self, complex, apartment):
         """ Get people complex and apartment """
 
-        peoples = self.repository.get_people_by_complex_apartment(complex, apartment)
+        peoples = await self.repository.get_people_by_complex_apartment(complex, apartment)
         return peoples
     
 
-    def update_by_id(self, id: int, new_data):
+    async def update_by_id(self, id: int, new_data):
         """ Update people by id """
     
-        people = self.repository.update_by_id(id, new_data)
+        people = await self.repository.update_by_id(id, new_data)
         return people
 
 
-    def process_image(self, picture: str):
+    async def process_image(self, picture: str):
         """ Process image """
 
         # TODO: Should be use a S3 Bucket

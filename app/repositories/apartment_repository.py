@@ -15,7 +15,7 @@ class ApartmentRepository:
         self.db = db
 
 
-    def create_apartment(self, apartment: Apartment) -> Apartment:
+    async def create_apartment(self, apartment: Apartment) -> Apartment:
         """ Create apartment """
         
         self.db.add(apartment)
@@ -24,7 +24,7 @@ class ApartmentRepository:
         return apartment
     
     
-    def get_all_apartments(self) -> List[Apartment]:
+    async def get_all_apartments(self) -> List[Apartment]:
         """ Get All Apartments """
         
         apartments = (
@@ -39,7 +39,7 @@ class ApartmentRepository:
         return apartments
         
 
-    def get_apartments_by_tower(self, number: int) -> Apartment:
+    async def get_apartments_by_tower(self, number: int) -> Apartment:
         """ Get Apartments By Tower """
         
         apartments = self.db.query(Apartment).filter(
@@ -48,22 +48,22 @@ class ApartmentRepository:
         return apartments
     
 
-    def get_apartment_by_id(self, id: int) -> Apartment:
+    async def get_apartment_by_id(self, id: int) -> Apartment:
         """ Get apartment by id """
         
-        apartment = self.db.query(apartment).filter(Apartment.id == id).first()
+        apartment = self.db.query(Apartment).filter(Apartment.id == id).first()
         
         if not apartment:
             raise HTTPException(
-                status_code=404, detail='Apartment not found'
+                status_code=404, detail=f'Apartment {id} not found'
             )
         return apartment
     
 
-    def update_by_id(self, id: int, new_data) -> Apartment:
+    async def update_by_id(self, id: int, new_data) -> Apartment:
         """ Update Apartment By Id id """
         
-        result = self.get_apartment_by_id(id)
+        result = await self.get_apartment_by_id(id)
         
         if not result:
             return result
