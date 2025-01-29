@@ -13,10 +13,10 @@ token_routes = APIRouter(
 
 
 @token_routes.post('/', status_code=200)
-def validate_user_token(
+async def validate_user_token(
     mobile: str,
     number: int,
     database: Session = Depends(get_database)
 ):
     token_service = TokenService(database)
-    return token_service.validate_user_token(mobile, number)
+    return await token_service.validate_user_token(mobile, number)

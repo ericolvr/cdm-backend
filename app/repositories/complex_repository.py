@@ -13,7 +13,7 @@ class ComplexRepository:
         self.db = db
 
 
-    def create_complex(self, complex: Complex) ->Complex:
+    async def create_complex(self, complex: Complex) ->Complex:
         """ Create Complex """
         
         self.db.add(complex)
@@ -22,14 +22,14 @@ class ComplexRepository:
         return complex
     
     
-    def get_all_complexes(self) -> List[Complex]:
+    async def get_all_complexes(self) -> List[Complex]:
         """ Get All complex """
         
         complex = self.db.query(Complex).all()
         return complex
         
 
-    def get_complex_by_id(self, id: int) -> Complex:
+    async def get_complex_by_id(self, id: int) -> Complex:
         """ Get Complex By Id """
         
         complex = self.db.query(Complex).filter(Complex.id == id).first()
@@ -41,10 +41,10 @@ class ComplexRepository:
         return complex
     
 
-    def update_by_id(self, id: int, new_data) -> Complex:
+    async def update_by_id(self, id: int, new_data) -> Complex:
         """ Update complex by id """
         
-        result = self.get_complex_by_id(id)
+        result = await self.get_complex_by_id(id)
         
         if not result:
             return result

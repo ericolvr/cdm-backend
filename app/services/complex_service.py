@@ -15,7 +15,7 @@ class ComplexService:
         self.database = db
 
 
-    def create_complex(self, complex: ComplexCreate):
+    async def create_complex(self, complex: ComplexCreate):
         """ Create Complex """
     
         complex = Complex(
@@ -24,9 +24,9 @@ class ComplexService:
             apartments_by_floor=complex.apartments_by_floor
         )
 
-        self.repository.create_complex(complex)
+        await self.repository.create_complex(complex)
 
-        ApartmentService(self.database).automatic_apartments(
+        await ApartmentService(self.database).automatic_apartments(
             complex.id,
             complex.floors,
             complex.apartments_by_floor,
@@ -36,23 +36,23 @@ class ComplexService:
         # TODO -  Improve
     
     
-    def get_all_complexes(self):
+    async def get_all_complexes(self):
         """ Get All Complexes """
     
-        complexes = self.repository.get_all_complexes()
+        complexes = await self.repository.get_all_complexes()
         return complexes
     
 
-    def get_complex_by_id(self, id: str):
+    async def get_complex_by_id(self, id: str):
         """ Get Complex By Id """
     
-        complex = self.repository.get_complex_by_id(id)
+        complex = await self.repository.get_complex_by_id(id)
         return complex
     
 
-    def update_by_id(self, id: int, new_data):
+    async def update_by_id(self, id: int, new_data):
         """ Update Complex By Id """
     
-        comples = self.repository.update_by_id(id, new_data)
+        comples = await self.repository.update_by_id(id, new_data)
         return comples
     
