@@ -12,9 +12,9 @@ help:
 	@echo "  $(COLOR_GREEN)install$(COLOR_RESET)		- Install Libraries / Dependencies"
 	@echo "  $(COLOR_GREEN)freeze$(COLOR_RESET)		- Freeze Libraries / Dependencies"
 	@echo "  $(COLOR_GREEN)start$(COLOR_RESET)			- Start MySQL Database"
-	@echo "  $(COLOR_GREEN)migrations$(COLOR_RESET)		- Start Alembic"
-	@echo "  $(COLOR_GREEN)migrate$(COLOR_RESET)		- Upgrade Alembic Head"
-	@echo "  $(COLOR_GREEN)run$(COLOR_RESET)			- Run FastAPI"
+	@echo "  $(COLOR_GREEN)migrations$(COLOR_RESET)		- Alembic Migrations"
+	@echo "  $(COLOR_GREEN)migrate$(COLOR_RESET)		- Alembic Migrate"
+	@echo "  $(COLOR_GREEN)run$(COLOR_RESET)			- Run API"
 	@echo ""
 	@echo "  $(COLOR_YELLOW)Note:$(COLOR_RESET) Use 'make <target>' to execute a specific target."
 	@echo ""
@@ -40,7 +40,9 @@ migrations:
 migrate:
 	alembic upgrade head
 
-
+tests:
+	python -m pytest -s -v
+	
 run:
 	uvicorn app.main:app --reload --host 127.0.0.1  --port 9999
 .PHONY: help, upgrade-pip, install, freeze, migrations, migrate, run
