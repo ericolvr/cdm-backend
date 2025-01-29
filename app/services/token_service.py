@@ -14,12 +14,12 @@ class TokenService:
         self.repository = TokenRepository(db)
 
 
-    def create_token(self, mobile: str):
+    async def create_token(self, mobile: str):
         """ Create Token """
     
         token = Token(
             mobile=mobile,
-            number=self.generate_token(),
+            number=await self.generate_token(),
             used=False,
         )
 
@@ -28,18 +28,18 @@ class TokenService:
             Amazon SNS, Twilio ...
         """
 
-        return self.repository.create_token(token)    
+        return await self.repository.create_token(token)    
     
     
-    def generate_token(self) -> int:
+    async def generate_token(self) -> int:
         """ Generate Token """
 
         number = random.randint(100000, 999999)
         return number
 
 
-    def validate_user_token(self, mobile: str, number: int):
+    async def validate_user_token(self, mobile: str, number: int):
         """ Validate user token """
         
-        return self.repository.validate_user_token(mobile, number)    
+        return await self.repository.validate_user_token(mobile, number)    
         

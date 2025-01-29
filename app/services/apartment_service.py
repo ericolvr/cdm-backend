@@ -13,7 +13,7 @@ class ApartmentService:
         self.repository = ApartmentRepository(db)
 
 
-    def automatic_apartments(
+    async def automatic_apartments(
         self, 
         complex_id: int, 
         floors: int, 
@@ -28,43 +28,43 @@ class ApartmentService:
                     complex_id=complex_id,
                     apartment_number=apartment_number_full
                 )
-                self.repository.create_apartment(apartment)
+                await self.repository.create_apartment(apartment)
 
 
-    def create_apartment(self, apartment: ApartmentCreate):
+    async def create_apartment(self, apartment: ApartmentCreate):
         """ Create Apartment """
     
         apartment = Apartment(
             complex_id=apartment.complex_id,
             apartment_number=apartment.apartment_number
         )
-        return self.repository.create_apartment(apartment)    
+        return await self.repository.create_apartment(apartment)    
     
     
-    def get_all_apartments(self):
+    async def get_all_apartments(self):
         """ Get All Apartments """
     
-        apartments = self.repository.get_all_apartments()
+        apartments = await self.repository.get_all_apartments()
         return apartments
 
 
-    def get_apartments_by_tower(self, number: int):
+    async def get_apartments_by_tower(self, number: int):
         """ Get Apartments By Tower """
     
-        apartments = self.repository.get_apartments_by_tower(number)
+        apartments = await self.repository.get_apartments_by_tower(number)
         return apartments
     
 
-    def get_apartment_by_id(self, id: str):
+    async def get_apartment_by_id(self, id: str):
         """ Get Apartment By Id """
     
-        apartment = self.repository.get_apartment_by_id(id)
+        apartment = await self.repository.get_apartment_by_id(id)
         return apartment
     
 
-    def update_by_id(self, id: int, new_data):
+    async def update_by_id(self, id: int, new_data):
         """ Update Apartment By Id """
     
-        apartment = self.repository.update_by_id(id, new_data)
+        apartment = await self.repository.update_by_id(id, new_data)
         return apartment
     

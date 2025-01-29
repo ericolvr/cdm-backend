@@ -13,7 +13,7 @@ class VehicleService:
         self.repository = VehicleRepository(db)
 
 
-    def create_vehicle(self, vehicle: VehicleCreate):
+    async def create_vehicle(self, vehicle: VehicleCreate):
         """ Vehicle Create """
     
         vehicle = Vehicle(
@@ -23,26 +23,26 @@ class VehicleService:
             complex_id=vehicle.complex_id,
             apartment_id=vehicle.apartment_id
         )
-        return self.repository.create_vehicle(vehicle)    
+        return await self.repository.create_vehicle(vehicle)    
     
     
-    def get_vehicles(self):
+    async def get_vehicles(self):
         """ Get Vehicles """
     
-        vehicles = self.repository.get_vehicles()
+        vehicles = await self.repository.get_vehicles()
         return vehicles
     
 
-    def get_vehicle_by_complex_apartment(self, complex, apartment):
+    async def get_vehicle_by_complex_apartment(self, complex, apartment):
         """ Get Vehicle By Complex And Apartment """
 
-        vehicles = self.repository.get_vehicle_by_complex_apartment(complex, apartment)
+        vehicles = await self.repository.get_vehicle_by_complex_apartment(complex, apartment)
         return vehicles
 
 
-    def update_by_id(self, id: int, new_data):
+    async def update_by_id(self, id: int, new_data):
         """ Update Vehicle By Id """
     
-        config = self.repository.update_by_id(id, new_data)
+        config = await self.repository.update_by_id(id, new_data)
         return config
     

@@ -14,7 +14,7 @@ class UserService:
         self.repository = UserRepository(db)
 
 
-    def create_user(self, user: UserCreate):
+    async def create_user(self, user: UserCreate):
         """ Create User """
     
         user = User(
@@ -24,33 +24,33 @@ class UserService:
             password=HashProvider.make_hash(user.password),
             status=user.status
         )
-        return self.repository.create_user(user)    
+        return await self.repository.create_user(user)    
     
     
-    def get_all_users(self):
+    async def get_all_users(self):
         """ Get All Users"""
     
-        users = self.repository.get_all_users()
+        users = await self.repository.get_all_users()
         return users
 
 
-    def get_user_by_mobile(self, mobile: str):
+    async def get_user_by_mobile(self, mobile: str):
         """ Get user by mobile """
     
-        user = self.repository.get_user_by_mobile(mobile)
+        user = await self.repository.get_user_by_mobile(mobile)
         return user
     
 
-    def get_user_by_id(self, id: str):
+    async def get_user_by_id(self, id: str):
         """ Get user by id """
     
-        user = self.repository.get_user_by_id(id)
+        user = await self.repository.get_user_by_id(id)
         return user
     
 
-    def update_by_id(self, id: int, new_data):
+    async def update_by_id(self, id: int, new_data):
         """ Update user by id """
     
-        user = self.repository.update_by_id(id, new_data)
+        user = await self.repository.update_by_id(id, new_data)
         return user
     

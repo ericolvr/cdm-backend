@@ -14,43 +14,43 @@ user_routes = APIRouter(
 
 
 @user_routes.post('/', status_code=201)
-def create_user(
+async def create_user(
     user: UserCreate, 
     database: Session = Depends(get_database)
 ):
     user_service = UserService(database)
-    return user_service.create_user(user)
+    return await user_service.create_user(user)
 
 
 @user_routes.get('/')
-def get_all_users(database: Session = Depends(get_database)):
+async def get_all_users(database: Session = Depends(get_database)):
     user_service = UserService(database)
-    return user_service.get_all_users()
+    return await user_service.get_all_users()
 
 
 @user_routes.get('/mobile')
-def get_user_by_mobile(
-        mobile: str, 
-        database: Session = Depends(get_database)
+async def get_user_by_mobile(
+    mobile: str, 
+    database: Session = Depends(get_database)
 ):
     user_service = UserService(database)
-    return user_service.get_user_by_mobile(mobile)
+    return await user_service.get_user_by_mobile(mobile)
 
 
 @user_routes.get('/id')
-def get_user_by_id(
-        id: str, 
-        database: Session = Depends(get_database)
+async def get_user_by_id(
+    id: str, 
+    database: Session = Depends(get_database)
 ):
     user_service = UserService(database)
-    return user_service.get_user_by_id(id)
+    return await user_service.get_user_by_id(id)
 
 
 @user_routes.patch('/update/{id}')
-def update_by_id(
-        id: int, 
-        new_data: UserUpdate, 
-        database: Session = Depends(get_database)
+async def update_by_id(
+    id: int, 
+    new_data: UserUpdate, 
+    database: Session = Depends(get_database)
 ):
     user_service = UserService(database)
-    return user_service.update_by_id(id, new_data)
+    return await user_service.update_by_id(id, new_data)

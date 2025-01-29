@@ -12,7 +12,7 @@ class UserRepository:
         self.db = db
 
 
-    def create_user(self, user: User) -> User:
+    async def create_user(self, user: User) -> User:
         """ Create User """
         
         self.db.add(user)
@@ -21,14 +21,14 @@ class UserRepository:
         return user
     
     
-    def get_all_users(self) -> List[User]:
+    async def get_all_users(self) -> List[User]:
         """ Get All Users """
         
         users = self.db.query(User).all()
         return users
         
 
-    def get_user_by_mobile(self, mobile: str) -> User:
+    async def get_user_by_mobile(self, mobile: str) -> User:
         """ Get User By Mobile """
         
         user = self.db.query(User).filter(User.mobile == mobile).first()
@@ -40,7 +40,7 @@ class UserRepository:
         return user
     
 
-    def get_user_by_id(self, id: int) -> User:
+    async def get_user_by_id(self, id: int) -> User:
         """ Get user by id """
         
         user = self.db.query(User).filter(User.id == id).first()
@@ -52,10 +52,10 @@ class UserRepository:
         return user
     
 
-    def update_by_id(self, id: int, new_data) -> User:
+    async def update_by_id(self, id: int, new_data) -> User:
         """ Update user by id """
         
-        result = self.get_user_by_id(id)
+        result = await self.get_user_by_id(id)
         
         if not result:
             return result
