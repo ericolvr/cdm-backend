@@ -3,14 +3,18 @@ import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-load_dotenv()
+env = os.getenv('ENV')
 
+if env == 'local':
+    load_dotenv('.env.local')
+else:
+    load_dotenv('.env.production')
 
-USER = os.environ.get('MONGO_USERNAME')
-PWD = os.environ.get('MONGO_PASSWORD')
-HOST = os.environ.get('MONGO_HOST')
-PORT = os.environ.get('MONGO_PORT')
-DB = os.environ.get('MONGO_DATABASE')
+USER = os.environ.get('USERNAME')
+PWD = os.environ.get('PASSWORD')
+HOST = os.environ.get('HOST')
+PORT = os.environ.get('PORT')
+DB = os.environ.get('DATABASE')
 
 MONGO_URI = f'mongodb://{USER}:{PWD}@{HOST}:{PORT}/{DB}'
 
