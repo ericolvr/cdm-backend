@@ -1,6 +1,5 @@
 """ Token Repository """
-from typing import List
-from fastapi import status
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from app.domain.model.token import Token
 
@@ -24,18 +23,18 @@ class TokenRepository:
     def validate_user_token(self, mobile: str, number: int) -> Token:
         """ Validate user token """
         
-        result = self.db.query(Token).filter(
+        exists = self.db.query(Token).filter(
             Token.mobile == mobile,
             Token.number == number,
         ).first()
 
-        if not result:
-            message = {
-                f'Token for {mobile} is invalid',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
-        return result
+        if not exists:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'Token  for mobile number {mobile} not found'
+            )
+        
+        return exists
     
 
     

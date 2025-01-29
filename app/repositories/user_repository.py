@@ -1,19 +1,19 @@
 """ User Repository """
 from typing import List
-from fastapi import status
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from app.domain.model.user import User
 
 
 class UserRepository:
-    """ User repository"""
+    """ User Repository"""
     
     def __init__(self, db: Session):
         self.db = db
 
 
     def create_user(self, user: User) -> User:
-        """ Create user """
+        """ Create User """
         
         self.db.add(user)
         self.db.commit()
@@ -22,22 +22,21 @@ class UserRepository:
     
     
     def get_all_users(self) -> List[User]:
-        """ get all users """
+        """ Get All Users """
         
         users = self.db.query(User).all()
         return users
         
 
     def get_user_by_mobile(self, mobile: str) -> User:
-        """ Get user by mobile """
+        """ Get User By Mobile """
         
         user = self.db.query(User).filter(User.mobile == mobile).first()
         if not user:
-            message = {
-                f'User {mobile} not found',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'User with mobile {mobile} not found'
+            )
         return user
     
 
@@ -46,11 +45,10 @@ class UserRepository:
         
         user = self.db.query(User).filter(User.id == id).first()
         if not user:
-            message = {
-                f'User {id} not found',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'User with id {id} not found'
+            )
         return user
     
 

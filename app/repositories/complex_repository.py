@@ -1,6 +1,6 @@
 """ Complex Repository """
 from typing import List
-from fastapi import status
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 
 from app.domain.model.complex import Complex
@@ -14,7 +14,7 @@ class ComplexRepository:
 
 
     def create_complex(self, complex: Complex) ->Complex:
-        """ Create complex """
+        """ Create Complex """
         
         self.db.add(complex)
         self.db.commit()
@@ -23,22 +23,21 @@ class ComplexRepository:
     
     
     def get_all_complexes(self) -> List[Complex]:
-        """ Get all complex """
+        """ Get All complex """
         
         complex = self.db.query(Complex).all()
         return complex
         
 
     def get_complex_by_id(self, id: int) -> Complex:
-        """ Get complex by id """
+        """ Get Complex By Id """
         
         complex = self.db.query(Complex).filter(Complex.id == id).first()
         if not complex:
-            message = {
-                f'complex {id} not found',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'Complex id {id} not found'
+            )
         return complex
     
 

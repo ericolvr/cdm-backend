@@ -1,6 +1,6 @@
 """ People Repository """
 from typing import List
-from fastapi import status
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
 
@@ -48,11 +48,10 @@ class PeopleRepository:
         ).first()
         
         if not people:
-            message = {
-                f'People {id} not found',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'People id {id} not found'
+            )
         return people
     
     
