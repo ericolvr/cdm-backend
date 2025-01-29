@@ -1,0 +1,27 @@
+name: CDPipeline
+
+on:
+  workflow_run:
+    workflows: ["CIPipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Pull New API Image
+        run: docker pull oliveiraerico/condominium:v${{ github.run_number }}
+
+      - name: Deleting Old Api Container
+        run: docker rm -f condo || true  
+
+      - name: Running New API Container
+        run: docker run -d -p 8888:8888 --name condo --network=codo oliveiraerico/condominium:v${{ github.run_number }}
+
