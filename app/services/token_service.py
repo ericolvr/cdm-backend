@@ -8,7 +8,7 @@ from app.domain.model.token import Token
 
 
 class TokenService:
-    """ Token service """
+    """ Token Service """
     
     def __init__(self, db: Session):
         self.repository = TokenRepository(db)
@@ -22,6 +22,12 @@ class TokenService:
             number=self.generate_token(),
             used=False,
         )
+
+        """
+            Send message with token using background task
+            Amazon SNS, Twilio ...
+        """
+
         return self.repository.create_token(token)    
     
     

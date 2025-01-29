@@ -2,13 +2,13 @@
 from sqlalchemy.orm import Session
 
 from app.repositories.user_repository import UserRepository
-from app.repositories.providers.hash import HashProvider
+from app.domain.providers.hash import HashProvider
 from app.schemas.user import UserCreate
 from app.domain.model.user import User
 
 
 class UserService:
-    """ User service """
+    """ User Service """
     
     def __init__(self, db: Session):
         self.repository = UserRepository(db)
@@ -28,7 +28,7 @@ class UserService:
     
     
     def get_all_users(self):
-        """ Get all users"""
+        """ Get All Users"""
     
         users = self.repository.get_all_users()
         return users

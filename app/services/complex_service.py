@@ -8,7 +8,7 @@ from app.services.apartment_service import ApartmentService
 
 
 class ComplexService:
-    """ Complex service """
+    """ Complex Service """
     
     def __init__(self, db: Session):
         self.repository = ComplexRepository(db)
@@ -16,7 +16,7 @@ class ComplexService:
 
 
     def create_complex(self, complex: ComplexCreate):
-        """ Create category """
+        """ Create Complex """
     
         complex = Complex(
             name=complex.name,
@@ -32,25 +32,26 @@ class ComplexService:
             complex.apartments_by_floor,
         )
         
-        return {'message': 'Complex created successfully'}
+        return {'message': 'Complex created successfully'} 
+        # TODO -  Improve
     
     
     def get_all_complexes(self):
-        """ Get all complexes """
+        """ Get All Complexes """
     
         complexes = self.repository.get_all_complexes()
         return complexes
     
 
     def get_complex_by_id(self, id: str):
-        """ Get complex by id """
+        """ Get Complex By Id """
     
         complex = self.repository.get_complex_by_id(id)
         return complex
     
 
     def update_by_id(self, id: int, new_data):
-        """ Update complex by id """
+        """ Update Complex By Id """
     
         comples = self.repository.update_by_id(id, new_data)
         return comples
