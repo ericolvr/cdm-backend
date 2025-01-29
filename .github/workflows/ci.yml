@@ -1,0 +1,38 @@
+name: CIPipeline
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [ "master" ]
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: pytest
+
+    - name: Login Dockerhub
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+    - name: Building API Image
+      run: docker build -t oliveiraerico/condominium:v${{ github.run_number }} .
+
+    - name: Push API to Dockerhub
+      run: docker push oliveiraerico/condominium:v${{ github.run_number }}
