@@ -11,7 +11,7 @@ class TokenRepository:
         self.db = db
 
 
-    def create_token(self, token: Token) -> Token:
+    async def create_token(self, token: Token) -> Token:
         """ Create token """
         
         self.db.add(token)
@@ -20,7 +20,7 @@ class TokenRepository:
         return token
             
 
-    def validate_user_token(self, mobile: str, number: int) -> Token:
+    async def validate_user_token(self, mobile: str, number: int) -> Token:
         """ Validate user token """
         
         exists = self.db.query(Token).filter(

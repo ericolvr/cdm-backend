@@ -16,7 +16,7 @@ class VehicleRepository:
         self.db = db
 
 
-    def create_vehicle(self, vehicle: Vehicle) -> Vehicle:
+    async def create_vehicle(self, vehicle: Vehicle) -> Vehicle:
         """ Create Vehicle """
         
         self.db.add(vehicle)
@@ -25,7 +25,7 @@ class VehicleRepository:
         return vehicle
     
     
-    def get_vehicles(self) -> List[Vehicle]:
+    async def get_vehicles(self) -> List[Vehicle]:
         """ Get Vehicles """
         
         vehicles = (
@@ -40,7 +40,7 @@ class VehicleRepository:
         return vehicles
 
 
-    def get_vehicle_by_complex_apartment(
+    async def get_vehicle_by_complex_apartment(
             self, 
             complex: 
             int, apartment: int
@@ -55,7 +55,7 @@ class VehicleRepository:
         return vehicles
     
 
-    def get_vehicle_by_id(self, id: int) -> Vehicle:
+    async def get_vehicle_by_id(self, id: int) -> Vehicle:
         """ Get Vehicle By Id """
         
         vehicle = self.db.query(vehicle).filter(Vehicle.id == id).first()
@@ -67,10 +67,10 @@ class VehicleRepository:
         return vehicle
            
 
-    def update_by_id(self, id: int, new_data) -> Vehicle:
+    async def update_by_id(self, id: int, new_data) -> Vehicle:
         """ Update Vehicle By Id """
         
-        result = self.get_vehicle_by_id(id)
+        result = await self.get_vehicle_by_id(id)
         
         if not result:
             return result

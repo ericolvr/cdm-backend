@@ -16,7 +16,7 @@ class PeopleRepository:
         self.db = db
 
 
-    def create_people(self, people: People) -> People:
+    async def create_people(self, people: People) -> People:
         """ Create people """
 
         self.db.add(people)
@@ -25,7 +25,7 @@ class PeopleRepository:
         return people
     
 
-    def get_all_peoples(self) -> List[People]:
+    async def get_all_peoples(self) -> List[People]:
         """ get Peoples """
 
         peoples = (
@@ -40,7 +40,7 @@ class PeopleRepository:
         return peoples
 
 
-    def get_people_by_id(self, id: int) -> People:
+    async def get_people_by_id(self, id: int) -> People:
         """ Get People by id """
         
         people = self.db.query(People).filter(
@@ -55,7 +55,7 @@ class PeopleRepository:
         return people
     
     
-    def get_people_by_complex_apartment(
+    async def get_people_by_complex_apartment(
             self, 
             complex: 
             int, apartment: int
@@ -70,10 +70,10 @@ class PeopleRepository:
         return peoples
     
 
-    def update_by_id(self, id: int, new_data) -> People:
+    async def update_by_id(self, id: int, new_data) -> People:
         """ Update peoplew by id """
         
-        result = self.get_people_by_id(id)
+        result = await self.get_people_by_id(id)
         if not result:
             return result
         
