@@ -5,18 +5,28 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-load_dotenv()
+env = os.getenv('ENV')
 
-user = os.environ.get('USERNAME')
-password = os.environ.get('PASSWORD')
-host = os.environ.get('HOST')
-port = os.environ.get('PORT')
-database = os.environ.get('DATABASE')
+if env == 'local':
+    load_dotenv('.env.local')
+else:
+    load_dotenv('.env.production')
 
-SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://root:{password}@{host}:{port}/{database}'
+USER = os.environ.get('USERNAME')
+PWD = os.environ.get('PASSWORD')
+HOST = os.environ.get('HOST')
+PORT = os.environ.get('PORT')
+DB = os.environ.get('DATABASE')
+
+SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{USER}:{PWD}@{HOST}:{PORT}/{DB}'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={}, future=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
+SessionLocal = sessionmaker(
+    autocommit=False, 
+    autoflush=False, 
+    bind=engine, 
+    future=True
+)
 
 Base = declarative_base()
 

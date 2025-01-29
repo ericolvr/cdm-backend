@@ -11,14 +11,14 @@ class Manager:
 
 
     async def connect(self, websocket: WebSocket, user: str):
-        """ Connection Method """
+        """ Connect """
 
         await websocket.accept()
         self.active_connections[user] = websocket
 
 
     async def disconnect(self, user: str):
-        """ Disconnect Method """
+        """ Disconnect """
 
         if user in self.active_connections:
             del self.active_connections[user]
@@ -32,7 +32,7 @@ class Manager:
 
 
     async def broadcast(self, message: str):
-        """ Broadcast message method """
+        """ Broadcast Messages """
 
         for conn in self.active_connections.values():
             await conn.send_json(message)

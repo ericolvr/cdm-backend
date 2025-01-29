@@ -1,6 +1,6 @@
 """ Vehicle Repository """
 from typing import List
-from fastapi import status
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
 
@@ -45,7 +45,7 @@ class VehicleRepository:
             complex: 
             int, apartment: int
         ) -> List[Vehicle]:
-        """ Get vehicle by complex and apartment """
+        """ Get Vehicle By Complex And Apartment """
         
         vehicles = self.db.query(Vehicle).filter(
             Vehicle.complex_id == complex,
@@ -56,20 +56,19 @@ class VehicleRepository:
     
 
     def get_vehicle_by_id(self, id: int) -> Vehicle:
-        """ Get Vehicle by id """
+        """ Get Vehicle By Id """
         
         vehicle = self.db.query(vehicle).filter(Vehicle.id == id).first()
         if not vehicle:
-            message = {
-                f'vehicle {id} not found',
-                status.HTTP_404_NOT_FOUND
-            }
+            raise HTTPException(
+                status_code=404, detail=f'Vehicle {id} not found'
+            )
             return message
         return vehicle
            
 
     def update_by_id(self, id: int, new_data) -> Vehicle:
-        """ Update Vehicle by id """
+        """ Update Vehicle By Id """
         
         result = self.get_vehicle_by_id(id)
         

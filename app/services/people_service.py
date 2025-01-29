@@ -12,7 +12,7 @@ from app.services.token_service import TokenService
 
 
 class PeopleService:
-    """ People service """
+    """ People Service """
     
     def __init__(self, db: Session):
         self.repository = PeopleRepository(db)
@@ -20,7 +20,7 @@ class PeopleService:
 
 
     def create_people(self, people: PeopleCreate, background_tasks: BackgroundTasks):
-        """ Create people """
+        """ Create People """
 
         if people.picture:
             picture = self.process_image(people.picture)
@@ -35,10 +35,6 @@ class PeopleService:
             complex_id=people.complex_id,
             apartment_id=people.apartment_id
         )
-
-        """
-            Creating a token and send by sms
-        """
         
         background_tasks.add_task(
             TokenService(self.database).create_token, people.mobile
@@ -48,14 +44,14 @@ class PeopleService:
 
 
     def get_all_peoples(self):
-        """ Get all peoples """
+        """ Get All People """
 
         peoples = self.repository.get_all_peoples()
         return peoples
 
 
     def get_people_by_id(self, id: str):
-        """ Get people by id """
+        """ Get People By Id """
 
         people = self.repository.get_people_by_id(id)
         return people
@@ -78,12 +74,13 @@ class PeopleService:
     def process_image(self, picture: str):
         """ Process image """
 
-        FOLDER = "uploads"
+        # TODO: Should be use a S3 Bucket
+        FOLDER = 'uploads'
         os.makedirs(FOLDER, exist_ok=True)
         
         try:
             data = base64.b64decode(picture)
-            name = f"{uuid4()}.png"
+            name = f'{uuid4()}.png'
             path = os.path.join(FOLDER, name)
             
             with open(path, 'wb') as f:
@@ -92,4 +89,6 @@ class PeopleService:
             return picture
         
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Error saving image: {str(e)}")
+            raise HTTPException(
+                status_code=400, detail=f'Error saving image: {str(e)}'
+            )

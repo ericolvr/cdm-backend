@@ -11,7 +11,7 @@ help:
 	@echo "  $(COLOR_GREEN)upgrade-pip$(COLOR_RESET)		- Upgrade Pip Version"
 	@echo "  $(COLOR_GREEN)install$(COLOR_RESET)		- Install Libraries / Dependencies"
 	@echo "  $(COLOR_GREEN)freeze$(COLOR_RESET)		- Freeze Libraries / Dependencies"
-	@echo "  $(COLOR_GREEN)start$(COLOR_RESET)		- Start MySQL Database"
+	@echo "  $(COLOR_GREEN)start$(COLOR_RESET)			- Start MySQL Database"
 	@echo "  $(COLOR_GREEN)migrations$(COLOR_RESET)		- Start Alembic"
 	@echo "  $(COLOR_GREEN)migrate$(COLOR_RESET)		- Upgrade Alembic Head"
 	@echo "  $(COLOR_GREEN)run$(COLOR_RESET)			- Run FastAPI"
@@ -27,6 +27,9 @@ install:
 
 freeze:
 	pip freeze > requirements.txt
+
+envvars:
+	export ENV=local
 	
 start:
 	docker compose up -d

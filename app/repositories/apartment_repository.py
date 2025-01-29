@@ -1,6 +1,6 @@
 """ Apartment Repository """
 from typing import List
-from fastapi import status
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
 
@@ -25,7 +25,7 @@ class ApartmentRepository:
     
     
     def get_all_apartments(self) -> List[Apartment]:
-        """ Get all apartments """
+        """ Get All Apartments """
         
         apartments = (
             self.db.query(Apartment)
@@ -40,7 +40,7 @@ class ApartmentRepository:
         
 
     def get_apartments_by_tower(self, number: int) -> Apartment:
-        """ Get apartments by tower """
+        """ Get Apartments By Tower """
         
         apartments = self.db.query(Apartment).filter(
             Apartment.complex_id == number
@@ -52,17 +52,16 @@ class ApartmentRepository:
         """ Get apartment by id """
         
         apartment = self.db.query(apartment).filter(Apartment.id == id).first()
+        
         if not apartment:
-            message = {
-                f'apartment {id} not found',
-                status.HTTP_404_NOT_FOUND
-            }
-            return message
+            raise HTTPException(
+                status_code=404, detail='Apartment not found'
+            )
         return apartment
     
 
     def update_by_id(self, id: int, new_data) -> Apartment:
-        """ Update apartment by id """
+        """ Update Apartment By Id id """
         
         result = self.get_apartment_by_id(id)
         

@@ -7,7 +7,7 @@ from app.domain.model.apartment import Apartment
 
 
 class ApartmentService:
-    """ Apartment service """
+    """ Apartment Service """
     
     def __init__(self, db: Session):
         self.repository = ApartmentRepository(db)
@@ -19,7 +19,7 @@ class ApartmentService:
         floors: int, 
         apartments_by_floor: int
     ):
-        """ Automatic apartments """
+        """ Creating Automatic Apartments """
         
         for floor in range(1, floors + 1):
             for apartment_number in range(1, apartments_by_floor + 1):                
@@ -42,28 +42,28 @@ class ApartmentService:
     
     
     def get_all_apartments(self):
-        """ Get all apartments """
+        """ Get All Apartments """
     
         apartments = self.repository.get_all_apartments()
         return apartments
 
 
     def get_apartments_by_tower(self, number: int):
-        """ Get apartments by tower """
+        """ Get Apartments By Tower """
     
         apartments = self.repository.get_apartments_by_tower(number)
         return apartments
     
 
     def get_apartment_by_id(self, id: str):
-        """ Get apartment by id """
+        """ Get Apartment By Id """
     
         apartment = self.repository.get_apartment_by_id(id)
         return apartment
     
 
     def update_by_id(self, id: int, new_data):
-        """ Update apartment by id """
+        """ Update Apartment By Id """
     
         apartment = self.repository.update_by_id(id, new_data)
         return apartment

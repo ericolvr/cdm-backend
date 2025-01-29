@@ -1,4 +1,4 @@
-""" People routes """
+""" People Routes """
 from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 

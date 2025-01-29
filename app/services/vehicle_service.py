@@ -14,7 +14,7 @@ class VehicleService:
 
 
     def create_vehicle(self, vehicle: VehicleCreate):
-        """ Vehicle Config """
+        """ Vehicle Create """
     
         vehicle = Vehicle(
             brand=vehicle.brand,
@@ -27,21 +27,21 @@ class VehicleService:
     
     
     def get_vehicles(self):
-        """ Get vehicles """
+        """ Get Vehicles """
     
         vehicles = self.repository.get_vehicles()
         return vehicles
     
 
     def get_vehicle_by_complex_apartment(self, complex, apartment):
-        """ Get vehicle complex and apartment """
+        """ Get Vehicle By Complex And Apartment """
 
         vehicles = self.repository.get_vehicle_by_complex_apartment(complex, apartment)
         return vehicles
 
 
     def update_by_id(self, id: int, new_data):
-        """ Update vehicle by id """
+        """ Update Vehicle By Id """
     
         config = self.repository.update_by_id(id, new_data)
         return config
