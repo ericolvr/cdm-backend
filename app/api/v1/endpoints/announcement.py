@@ -13,7 +13,7 @@ announcement_routes = APIRouter(
 )
 
 @announcement_routes.post('/', status_code=201)
-async def create_people(
+async def create_announcement(
     announcement: AnnouncementCreate, 
     database: Session = Depends(get_database),
 ):
@@ -22,7 +22,7 @@ async def create_people(
 
 
 @announcement_routes.get('/')
-async def get_all_peoples(database: Session = Depends(get_database)):
+async def get_all_announcements(database: Session = Depends(get_database)):
     announcement_service = AnnouncementService(database)
     return await announcement_service.get_all_announcements()
 
