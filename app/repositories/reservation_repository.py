@@ -2,9 +2,10 @@
 from typing import List
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.orm import joinedload
 
 from app.domain.model.reservation import Reservation
-
+from app.domain.model.people import People
 
 class ReservationRepository:
     """ Reservation Repository """
@@ -24,8 +25,16 @@ class ReservationRepository:
 
     async def get_all_reservations(self) -> List[Reservation]:
         """ get Reservations """
-
-        reservations = self.db.query(Reservation).all()
+        
+        reservations = (
+            self.db.query(Reservation)
+            .options(
+                joinedload(Reservation.people),
+                # .load_only(People.name),
+                joinedload(Reservation.place)
+            )
+            .all()
+        )
         return reservations
 
 
