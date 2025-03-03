@@ -33,7 +33,8 @@ class PeopleService:
             mobile=people.mobile,
             picture=picture,
             complex_id=people.complex_id,
-            apartment_id=people.apartment_id
+            apartment_id=people.apartment_id,
+            status=people.status
         )
 
         """

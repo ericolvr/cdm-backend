@@ -12,7 +12,8 @@ from app.domain.model.people import People
 from app.domain.model.user import User
 from app.domain.model.vehicle import Vehicle
 from app.domain.model.token import Token
-
+from app.domain.model.reservation import Reservation
+from app.domain.model.place import Place
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
