@@ -1,6 +1,6 @@
 """ Vehicle Repository """
 from typing import List
-from fastapi import status, HTTPException
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
 
