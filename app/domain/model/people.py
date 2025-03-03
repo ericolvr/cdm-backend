@@ -43,4 +43,4 @@ class People(Base):
     )
 
 
-from app.domain.model.reservation import Reservation  # Importação tardia
+from app.domain.model.reservation import Reservation
