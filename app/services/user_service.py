@@ -1,10 +1,13 @@
 """ User Service """
 from sqlalchemy.orm import Session
+from fastapi import BackgroundTasks
 
 from app.repositories.user_repository import UserRepository
 from app.domain.providers.hash import HashProvider
 from app.schemas.user import UserCreate
 from app.domain.model.user import User
+from app.domain.model.user import User
+from app.services.token_service import TokenService
 
 
 class UserService:
@@ -12,9 +15,10 @@ class UserService:
     
     def __init__(self, db: Session):
         self.repository = UserRepository(db)
+        self.token_service = TokenService(db)
 
 
-    async def create_user(self, user: UserCreate):
+    async def create_user(self, user: UserCreate, background_tasks: BackgroundTasks):
         """ Create User """
     
         user = User(
@@ -24,6 +28,10 @@ class UserService:
             password=HashProvider.make_hash(user.password),
             status=user.status
         )
+
+        # Add the create_token task to the background tasks
+        background_tasks.add_task(self.token_service.create_token, user.mobile)
+
         return await self.repository.create_user(user)    
     
     

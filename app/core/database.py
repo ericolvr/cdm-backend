@@ -12,11 +12,13 @@ if env == 'local':
 else:
     load_dotenv('.env.production')
 
-USER = os.environ.get('USERNAME')
-PWD = os.environ.get('PASSWORD')
-HOST = os.environ.get('HOST')
-PORT = os.environ.get('PORT')
-DB = os.environ.get('DATABASE')
+USER = 'root' #os.environ.get('USERNAME')
+PWD = 'secret'#os.environ.get('PASSWORD')
+HOST = 'localhost' #os.environ.get('HOST')
+PORT = 3306 #os.environ.get('PORT')
+DB = 'condominium' #os.environ.get('DATABASE')
+
+print(USER, PWD, HOST, PORT, DB, 20 * '-')
 
 SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{USER}:{PWD}@{HOST}:{PORT}/{DB}'
 

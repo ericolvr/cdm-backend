@@ -12,6 +12,7 @@ class PeopleCreate(BaseModel):
     document: str
     mobile: Optional[str] = None
     picture: Optional[str] = None
+    status: Optional[bool] = False
 
 
 class PeopleUpdate(BaseModel):
@@ -23,3 +24,4 @@ class PeopleUpdate(BaseModel):
     picture: Optional[str] = None
     complex_id: Optional[str] = None
     apartment_id: Optional[str] = None
+    status: Optional[bool] = False

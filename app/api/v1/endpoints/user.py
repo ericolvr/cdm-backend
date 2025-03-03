@@ -1,6 +1,7 @@
 """ User routes """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
+from fastapi import BackgroundTasks
 
 from app.core.database import get_database
 from app.schemas.user import UserCreate, UserUpdate
@@ -16,10 +17,11 @@ user_routes = APIRouter(
 @user_routes.post('/', status_code=201)
 async def create_user(
     user: UserCreate, 
+    background_tasks: BackgroundTasks,
     database: Session = Depends(get_database)
 ):
     user_service = UserService(database)
-    return await user_service.create_user(user)
+    return await user_service.create_user(user, background_tasks)
 
 
 @user_routes.get('/')

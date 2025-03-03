@@ -32,7 +32,7 @@ envvars:
 	export ENV=local
 	
 start:
-	docker compose up -d
+	docker compose up -d --build
 
 migrations:
 	alembic revision --autogenerate -m "Initial migration"
