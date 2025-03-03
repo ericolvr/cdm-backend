@@ -10,7 +10,7 @@ from app.api.v1.endpoints.vehicle import vehicle_routes
 from app.api.v1.endpoints.token import token_routes
 from app.api.v1.endpoints.place import place_routes
 from app.api.v1.endpoints.websocket import message_routes
-
+from app.api.v1.endpoints.reservation import reservation_routes
 
 app = FastAPI()
 
@@ -37,5 +37,6 @@ app.include_router(vehicle_routes)
 app.include_router(token_routes)
 app.include_router(place_routes)
 app.include_router(message_routes)
+app.include_router(reservation_routes)
 
 

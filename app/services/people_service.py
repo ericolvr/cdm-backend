@@ -76,6 +76,25 @@ class PeopleService:
         return people
 
 
+    # def process_image(self, picture: str):
+    #     """ Process image """
+
+    #     FOLDER = "uploads"
+    #     os.makedirs(FOLDER, exist_ok=True)
+        
+    #     try:
+    #         data = base64.b64decode(picture)
+    #         name = f"{uuid4()}.png"
+    #         path = os.path.join(FOLDER, name)
+            
+    #         with open(path, 'wb') as f:
+    #             f.write(data)
+    #         picture = path
+    #         return picture
+        
+    #     except Exception as e:
+    #         raise HTTPException(status_code=400, detail=f"Error saving image: {str(e)}")
+
     def process_image(self, picture: str):
         """ Process image """
 
@@ -83,6 +102,10 @@ class PeopleService:
         os.makedirs(FOLDER, exist_ok=True)
         
         try:
+            # Remove the prefix if it exists
+            if picture.startswith("data:image/png;base64,"):
+                picture = picture.replace("data:image/png;base64,", "")
+            
             data = base64.b64decode(picture)
             name = f"{uuid4()}.png"
             path = os.path.join(FOLDER, name)
