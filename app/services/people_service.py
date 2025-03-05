@@ -9,7 +9,7 @@ from app.domain.model.people import People
 from app.schemas.people import PeopleCreate
 from app.repositories.people_repository import PeopleRepository
 from app.services.token_service import TokenService
-
+from app.services.firebase_service import FirebaseService
 
 class PeopleService:
     """ People service """
@@ -45,6 +45,10 @@ class PeopleService:
             TokenService(self.database).create_token, people.mobile
         )
 
+        background_tasks.add_task(
+            FirebaseService().generate_firebase_token, people.mobile
+        )
+
         return self.repository.create_people(people)
 
 
@@ -75,25 +79,6 @@ class PeopleService:
         people = self.repository.update_by_id(id, new_data)
         return people
 
-
-    # def process_image(self, picture: str):
-    #     """ Process image """
-
-    #     FOLDER = "uploads"
-    #     os.makedirs(FOLDER, exist_ok=True)
-        
-    #     try:
-    #         data = base64.b64decode(picture)
-    #         name = f"{uuid4()}.png"
-    #         path = os.path.join(FOLDER, name)
-            
-    #         with open(path, 'wb') as f:
-    #             f.write(data)
-    #         picture = path
-    #         return picture
-        
-    #     except Exception as e:
-    #         raise HTTPException(status_code=400, detail=f"Error saving image: {str(e)}")
 
     def process_image(self, picture: str):
         """ Process image """
