@@ -29,7 +29,7 @@ class FirebaseService:
     
 
     def verify_mobile_number(self, mobile: str):
-        """ Verify Mobile Number """
+        """ Verify by Mobile number """
         
         return self.repository.get_mobile_number(mobile)
     

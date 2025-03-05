@@ -16,6 +16,7 @@ def create_firebase_token(
     mobile: str,
     database: Session = Depends(get_database),
 ):
+    
     firebase_service = FirebaseService(database)
     return firebase_service.generate_firebase_token(mobile)
 

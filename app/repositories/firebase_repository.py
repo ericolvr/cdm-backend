@@ -21,4 +21,5 @@ class FirebaseRepository:
             raise HTTPException(
                 status_code=404, detail=f'Mobile {mobile} not found'
             )
+        
         return number
