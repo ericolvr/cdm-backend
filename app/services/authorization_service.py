@@ -19,6 +19,11 @@ class AuthorizationService:
     def create_authorization(self, authorization: AuthorizationCreate):
         """ Create Authorization """
 
+        if authorization.picture:
+            picture = self.process_image(authorization.picture)
+        else:
+            picture = None 
+
         if authorization.type == 1:
             picture = 10
         
@@ -28,6 +33,7 @@ class AuthorizationService:
             authorization_date=authorization.authorization_date,
             hour_start=authorization.hour_start,
             hour_end=authorization.hour_end,
+            picture=picture
         )
 
         return self.repository.create_authorization(authorization)
