@@ -41,3 +41,4 @@ async def update_by_id(
 ):
     place_service = PlaceService(database)
     return await place_service.update_by_id(id, new_data)
+
