@@ -13,7 +13,7 @@ class AuthorizationCreate(BaseModel):
     authorization_date: date
     hour_start: str
     hour_end: str
-    picture = Optional[str] = None
+    picture: Optional[str] = None
 
 
 class AuthorizationUpdate(BaseModel):
@@ -25,5 +25,5 @@ class AuthorizationUpdate(BaseModel):
     authorization_date: Optional[date] = None
     hour_start: Optional[str] = None
     hour_end: Optional[str] = None
-    picture = Optional[str] = None
+    picture: Optional[str] = None
 
