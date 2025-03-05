@@ -24,7 +24,8 @@ class AuthorizationService:
         else:
             picture = None 
 
-        if authorization.type == 1:
+        # TODO 
+        if authorization.type == 0:
             picture = 10
         
         authorization = Authorization(
