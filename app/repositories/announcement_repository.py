@@ -19,7 +19,7 @@ class AnnouncementRepository:
         self.db.add(announcement)
         self.db.commit()
         self.db.refresh(announcement)
-        return Announcement
+        return announcement
     
 
     async def get_all_announcements(self) -> List[Announcement]:

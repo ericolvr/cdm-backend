@@ -15,6 +15,7 @@ class Announcement(Base):
     title = Column(String(70), nullable=False)
     description = Column(Text, nullable=True)
     created = Column(Date, default=func.now())
+    picture = Column(String(100), nullable=True)
 
 
 

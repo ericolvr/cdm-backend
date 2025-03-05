@@ -6,9 +6,9 @@ from typing import Optional
 class AnnouncementCreate(BaseModel):
     """ Announcement create schema """
 
-    type: int
+    type: str
     title: str
-    description: int
+    description: str
 
 
 class AnnouncementUpdate(BaseModel):
