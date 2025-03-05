@@ -13,6 +13,7 @@ class PeopleCreate(BaseModel):
     mobile: Optional[str] = None
     picture: Optional[str] = None
     status: Optional[bool] = False
+    password: str
 
 
 class PeopleUpdate(BaseModel):
@@ -25,3 +26,4 @@ class PeopleUpdate(BaseModel):
     complex_id: Optional[str] = None
     apartment_id: Optional[str] = None
     status: Optional[bool] = False
+    password: Optional[str] = None

@@ -9,7 +9,7 @@ from app.domain.model.people import People
 from app.schemas.people import PeopleCreate
 from app.repositories.people_repository import PeopleRepository
 from app.services.token_service import TokenService
-
+from app.services.hash_provider import HashProvider
 
 class PeopleService:
     """ People service """
@@ -34,7 +34,8 @@ class PeopleService:
             picture=picture,
             complex_id=people.complex_id,
             apartment_id=people.apartment_id,
-            status=people.status
+            status=people.status,
+            password=HashProvider.make_hash(people.password)
         )
 
         """

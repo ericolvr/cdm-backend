@@ -1,6 +1,5 @@
 """ Reservation Service """
 from sqlalchemy.orm import Session
-from fastapi import HTTPException
 
 from app.domain.model.reservation import Reservation
 from app.schemas.reservation import ReservationCreate, ReservationUpdate

@@ -12,6 +12,7 @@ class People(Base):
     mobile = Column(String(20), nullable=True)
     picture = Column(String(100), nullable=True)
     status = Column(Boolean, default=False)
+    password = Column(String(100), nullable=True)
 
     complex_id = Column(
         Integer, 

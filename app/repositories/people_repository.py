@@ -54,6 +54,21 @@ class PeopleRepository:
             )
         return people
     
+
+    def get_people_by_mobile(self, mobile: str) -> People:
+        """ Get People by mobile """
+        
+        people = self.db.query(People).filter(
+            People.mobile == mobile
+        ).first()
+        
+        if not people:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail=f'People mobile {mobile} not found'
+            )
+        return people
+    
     
     async def get_people_by_complex_apartment(
             self, 
