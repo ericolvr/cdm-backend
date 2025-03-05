@@ -9,7 +9,7 @@ from app.domain.model.people import People
 from app.schemas.people import PeopleCreate
 from app.repositories.people_repository import PeopleRepository
 from app.services.token_service import TokenService
-
+from app.services.firebase_service import FirebaseService
 
 class PeopleService:
     """ People service """
@@ -43,6 +43,10 @@ class PeopleService:
         
         background_tasks.add_task(
             TokenService(self.database).create_token, people.mobile
+        )
+
+        background_tasks.add_task(
+            FirebaseService().generate_firebase_token, people.mobile
         )
 
         return self.repository.create_people(people)
